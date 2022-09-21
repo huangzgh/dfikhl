@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style type="text/css">
+        form {
+            width: 100%;
+            height: 100%;
+            margin-top: 100px;
+            margin-bottom: 100px;
+
+        }
+
+        div {
+            display: inline-block;
+            padding-top: 255px;
+            padding-bottom: 255px;
+            padding-left: 1px;
+            padding-right: 1px;
+        }
+
+        h2 {
+            font-family: "微软雅黑";
+            font-size: 40px;
+            color: black;
+        }
+
+        #log {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <center>
+        <div>
+            <h3>
+                书城注册
+            </h3>
+            <p>
+                用户&emsp;名:<input type="text" id="userName" name="userName" onclick="checkUserName()"
+                                 placeholder="长3~15位字母开头"/>
+            </p>
+            <span id="userNameShow"></span>
+            <p>
+                昵&emsp;&emsp;称:<input type="text" id="nickName" name="nickName" onclick="checkNickName()"
+                                      placeholder="长3~15位字母开头"/>
+            </p>
+            <span id="nickNameShow"></span>
+            <p>
+                密&emsp;&emsp;码:<input type="text" id="pwd" name="pwd" onclick="checkpwd()" placeholder="长3~18位字母开头"/>
+
+            </p>
+            <p>
+                <span id="pwdShow"></span>
+            </p>
+            <p>
+                <input type="button" value="点击注册" onclick="reg()"/>
+            </p>
+            <span id="resultShow"></span>
+            <script>
+                function checkUserName() {
+                    //获取用户名
+                    var userName = document.getElementById("userName").value;
+                    var userNameShowDom = document.getElementById("userNameShow");
+
+                    //用户名必须满足大于等于3小于等于15之间
+                    if (userName.length >= 3 && userName.length <= 15) {
+
+                        //获取第一个数
+                        var a = userName.charAt(0);
+                        //判断是否字母开头，是就输出“验证通过!!!”
+                        if (isNaN(a)) {
+                            userNameShowDom.innerText = "验证通过!!!";
+                            userNameShowDom.style.color = "darkgreen";
+                            return true;
+                            //数字开头提示“不能数字开头”
+                        } else {
+                            userNameShowDom.innerText = "不能数字开头";
+                            userNameShowDom.style.color = "red";
+                        }
+                        //判断长度
+                    } else {
+                        userNameShowDom.innerText = "长度不符合";
+                        userNameShowDom.style.color = "red";
+                    }
+                }
+
+                function checkNickName() {
+                    //获取昵称
+                    var nickName = document.getElementById("nickName").value;
+                    var nickNameShowDom = document.getElementById("nickNameShow");
+
+                    //昵称必须满足大于等于3小于等于15之间
+                    if (nickName.length >= 3 && nickName.length <= 15) {
+
+                        //获取第一个数
+                        var a = nickName.charAt(0);
+                        //判断是否字母开头，是就输出“验证通过!!!”
+                        if (isNaN(a)) {
+                            nickNameShowDom.innerText = "验证通过!!!";
+                            nickNameShowDom.style.color = "darkgreen";
+                            return true;
+                            //数字开头提示“不能数字开头”
+                        } else {
+                            nickNameShowDom.innerText = "不能数字开头";
+                            nickNameShowDom.style.color = "red";
+                        }
+                        //判断长度
+                    } else {
+                        nickNameShowDom.innerText = "长度不符合";
+                        nickNameShowDom.style.color = "red";
+                    }
+                }
+
+                function checkpwd() {
+                    //获取密码
+                    var pwd = document.getElementById("pwd").value;
+                    var pwdShowDom = document.getElementById("pwdShow");
+
+                    //密码必须满足大于等于6小于等于18之间
+                    if (pwd.length >= 6 && pwd.length <= 18) {
+
+                        //使用正则表达式来完成里面有数字和字符同时的存在
+                        //\D匹配任意一个非阿拉伯数字字符就是除了0~9的其他字符数字
+                        //\d匹配任意一个阿拉伯数字（0~9）
+                        //所以/(\D+\d+)|(\d+\D+)/就代表着里面即拥有数字也拥有字符
+                        var pwdReg = /(\D+\d+)|(\d+\D+)/;
+                        if (pwdReg.test(pwd)) {
+                            pwdShowDom.innerText = "验证通过!!!";
+                            pwdShowDom.style.color = "darkgreen";
+                            return true;
+                            //如果正则表达式错误则输出“必须同时含有数字和字符!”这句话
+                        } else {
+                            pwdShowDom.innerText = "必须同时含有数字和字符!";
+                            pwdShowDom.style.color = "red";
+                            return false;
+                        }
+                        //判断长度
+                    } else {
+                        pwdShowDom.innerText = "长度不符合";
+                        pwdShowDom.style.color = "red";
+                        return false;
+                    }
+                }
+
+
+
+                //提交成功后弹出以下的内容
+                function reg() {
+                    if (checkUserName() && checkpwd())
+                        alert("登录成功，正在提交")
+                }
+
+
+            </script>
+        </div>
+    </center>
+</form>
